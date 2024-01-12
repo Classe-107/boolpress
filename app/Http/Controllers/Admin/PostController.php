@@ -10,6 +10,7 @@ use App\Http\Requests\UpdatePostRequest;
 
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -46,7 +47,10 @@ class PostController extends Controller
         //dd($userId);
         //aggiungiamo l'id dell'utente
         $formData['user_id'] = $userId;
-
+        if ($request->hasFile('image')) {
+            $path = Storage::put('images', $request->image);
+            $formData['image'] = $path;
+        }
         $post = Post::create($formData);
         return redirect()->route('admin.posts.show', $post->id);
     }
@@ -80,7 +84,14 @@ class PostController extends Controller
 
         //aggiungiamo l'id dell'utente proprietario del post
         $formData['user_id'] = $post->user_id;
+        if ($request->hasFile('image')) {
+            if ($post->image) {
+                Storage::delete($post->image);
+            }
 
+            $path = Storage::put('images', $request->image);
+            $formData['image'] = $path;
+        }
         $post->update($formData);
         return redirect()->route('admin.posts.show', $post->id);
     }
@@ -90,6 +101,10 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        if ($post->image) {
+            Storage::delete($post->image);
+        }
+
         $post->delete();
         return to_route('admin.posts.index')->with('message', "$post->title eliminato con successo");
     }
