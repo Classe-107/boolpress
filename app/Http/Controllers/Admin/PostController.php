@@ -8,6 +8,9 @@ use App\Models\Post;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
+
 class PostController extends Controller
 {
     /**
@@ -24,7 +27,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.posts.create');
     }
 
     /**
@@ -32,7 +35,20 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        //
+
+        $formData = $request->validated();
+        //CREATE SLUG
+        $slug = Str::slug($formData['title'], '-');
+        //add slug to formData
+        $formData['slug'] = $slug;
+        //prendiamo l'id dell'utente loggato
+        $userId = Auth::id();
+        //dd($userId);
+        //aggiungiamo l'id dell'utente
+        $formData['user_id'] = $userId;
+
+        $post = Post::create($formData);
+        return redirect()->route('admin.posts.show', $post->id);
     }
 
     /**
@@ -48,7 +64,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view('admin.posts.edit', compact('post'));
     }
 
     /**
@@ -56,7 +72,17 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
-        //
+        $formData = $request->validated();
+        //CREATE SLUG
+        $slug = Str::slug($formData['title'], '-');
+        //add slug to formData
+        $formData['slug'] = $slug;
+
+        //aggiungiamo l'id dell'utente proprietario del post
+        $formData['user_id'] = $post->user_id;
+
+        $post->update($formData);
+        return redirect()->route('admin.posts.show', $post->id);
     }
 
     /**
@@ -64,6 +90,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        return to_route('admin.posts.index')->with('message', "$post->title eliminato con successo");
     }
 }
