@@ -39,7 +39,7 @@ class PostController extends Controller
 
         $formData = $request->validated();
         //CREATE SLUG
-        $slug = Str::slug($formData['title'], '-');
+        $slug = Post::getSlug($formData['title']);
         //add slug to formData
         $formData['slug'] = $slug;
         //prendiamo l'id dell'utente loggato
@@ -48,7 +48,7 @@ class PostController extends Controller
         //aggiungiamo l'id dell'utente
         $formData['user_id'] = $userId;
         if ($request->hasFile('image')) {
-            $path = Storage::put('images', $request->image);
+            $path = Storage::put('images', $formData['image']);
             $formData['image'] = $path;
         }
         $post = Post::create($formData);
@@ -77,11 +77,12 @@ class PostController extends Controller
     public function update(UpdatePostRequest $request, Post $post)
     {
         $formData = $request->validated();
-        //CREATE SLUG
-        $slug = Str::slug($formData['title'], '-');
+        if ($post->title !== $formData['title']) {
+            //CREATE SLUG
+            $slug = Post::getSlug($formData['title']);
+        }
         //add slug to formData
         $formData['slug'] = $slug;
-
         //aggiungiamo l'id dell'utente proprietario del post
         $formData['user_id'] = $post->user_id;
         if ($request->hasFile('image')) {
@@ -89,7 +90,7 @@ class PostController extends Controller
                 Storage::delete($post->image);
             }
 
-            $path = Storage::put('images', $request->image);
+            $path = Storage::put('images', $formData['image']);
             $formData['image'] = $path;
         }
         $post->update($formData);
