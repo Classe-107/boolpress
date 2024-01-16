@@ -12,14 +12,17 @@ import.meta.glob(["../img/**", "../fonts/**"]);
 
 window.addEventListener("DOMContentLoaded", (event) => {
     // Toggle the side navigation
+    console.log("step 1");
     const sidebarToggle = document.body.querySelector("#sidebarToggle");
     if (sidebarToggle) {
+        console.log("step 2");
         // Uncomment Below to persist sidebar toggle between refreshes
         // if (localStorage.getItem('sb|sidebar-toggle') === 'true') {
         //     document.body.classList.toggle('sb-sidenav-toggled');
         // }
         sidebarToggle.addEventListener("click", (event) => {
             event.preventDefault();
+            console.log("step 3");
             document.body.classList.toggle("sb-sidenav-toggled");
             localStorage.setItem(
                 "sb|sidebar-toggle",
@@ -41,38 +44,42 @@ window.addEventListener("DOMContentLoaded", (event) => {
 });
 
 const deleteSubmitButtons = document.querySelectorAll(".delete-button");
+if (deleteSubmitButtons) {
+    deleteSubmitButtons.forEach((button) => {
+        button.addEventListener("click", (event) => {
+            event.preventDefault();
 
-deleteSubmitButtons.forEach((button) => {
-    button.addEventListener("click", (event) => {
-        event.preventDefault();
+            const dataTitle = button.getAttribute("data-item-title");
 
-        const dataTitle = button.getAttribute("data-item-title");
+            const modal = document.getElementById("deleteModal");
 
-        const modal = document.getElementById("deleteModal");
+            const bootstrapModal = new bootstrap.Modal(modal);
+            bootstrapModal.show();
 
-        const bootstrapModal = new bootstrap.Modal(modal);
-        bootstrapModal.show();
+            const modalItemTitle = modal.querySelector("#modal-item-title");
+            modalItemTitle.textContent = dataTitle;
 
-        const modalItemTitle = modal.querySelector("#modal-item-title");
-        modalItemTitle.textContent = dataTitle;
+            const buttonDelete = modal.querySelector("button.btn-primary");
 
-        const buttonDelete = modal.querySelector("button.btn-primary");
-
-        buttonDelete.addEventListener("click", () => {
-            button.parentElement.submit();
+            buttonDelete.addEventListener("click", () => {
+                button.parentElement.submit();
+            });
         });
     });
-});
+}
 
 const previewImage = document.getElementById("image");
-previewImage.addEventListener("change", (event) => {
-    var oFReader = new FileReader();
-    // var image  =  previewImage.files[0];
-    // console.log(image);
-    oFReader.readAsDataURL(previewImage.files[0]);
+if (previewImage) {
+    previewImage.addEventListener("change", (event) => {
+        var oFReader = new FileReader();
+        // var image  =  previewImage.files[0];
+        // console.log(image);
+        oFReader.readAsDataURL(previewImage.files[0]);
 
-    oFReader.onload = function (oFREvent) {
-        //console.log(oFREvent);
-        document.getElementById("uploadPreview").src = oFREvent.target.result;
-    };
-});
+        oFReader.onload = function (oFREvent) {
+            //console.log(oFREvent);
+            document.getElementById("uploadPreview").src =
+                oFREvent.target.result;
+        };
+    });
+}
