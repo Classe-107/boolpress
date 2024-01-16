@@ -34,7 +34,7 @@ class CategoryController extends Controller
     {
         $formData = $request->validated();
         //CREATE SLUG
-        $slug = Category::getSlug($formData['name']);
+        $slug = Str::of($formData['name'])->slug('-');
         //add slug to formData
         $formData['slug'] = $slug;
         $category = Category::create($formData);

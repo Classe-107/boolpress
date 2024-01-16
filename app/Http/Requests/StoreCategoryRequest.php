@@ -11,7 +11,7 @@ class StoreCategoryRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +23,7 @@ class StoreCategoryRequest extends FormRequest
     {
         return [
 
-            'name' => ['required', 'min:3', 'max:200', 'unique:catgories'],
+            'name' => ['required', 'min:3', 'max:200', 'unique:categories'],
         ];
     }
 
