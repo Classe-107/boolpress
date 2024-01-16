@@ -246,6 +246,7 @@ $table->foreignId('user_id')->constrained()->cascadeOnDelete();
 $table->dropForeign('posts_user_id_foreign');
 $table->dropColumn('user_id');
 
+#nei model
 
 
 
