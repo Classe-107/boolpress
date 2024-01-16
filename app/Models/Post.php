@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 class Post extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id', 'title', 'slug', 'body', 'image'];
+    protected $fillable = ['user_id', 'title', 'slug', 'body', 'image', 'category_id'];
 
     public function user()
     {

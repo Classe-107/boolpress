@@ -2,7 +2,7 @@
 @section('content')
     <section class="container">
         <h1>Edit {{$post->title}}</h1>
-        <form action="{{ route('admin.posts.update', $post->id) }}" enctype="multipart/form-data" method="POST">
+        <form action="{{ route('admin.posts.update', $post->slug) }}" enctype="multipart/form-data" method="POST">
         @csrf
         @method('PUT')
      <div class="mb-3">
@@ -13,7 +13,18 @@
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
     </div>
-
+<div class="mb-3">
+            <label for="category_id">Select Category</label>
+            <select class="form-control @error('category_id') is-invalid @enderror" name="category_id" id="category_id">
+                <option value="">Select a category</option>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}" {{ old('category_id', $post->category_id) ==  $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                @endforeach
+            </select>
+            @error('category_id')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+    </div>
     <div class="mb-3">
         <label for="body">Body</label>
         <textarea class="form-control @error('body') is-invalid @enderror" name="body" id="body" cols="30" rows="10">{{ old('body', $post->body) }}
