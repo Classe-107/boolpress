@@ -422,3 +422,11 @@ body {
   font-size: 0.75rem;
   border-radius: 0.375rem !important;
 }
+
+// custom styles
+#item-post{
+    img {
+        width: 300px;
+        height: auto;
+    }
+}
