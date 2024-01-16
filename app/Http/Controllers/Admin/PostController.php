@@ -54,7 +54,7 @@ class PostController extends Controller
             $formData['image'] = $path;
         }
         $post = Post::create($formData);
-        return redirect()->route('admin.posts.show', $post->id);
+        return redirect()->route('admin.posts.show', $post->slug);
     }
 
     /**
