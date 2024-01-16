@@ -25,7 +25,6 @@
                 <tr>
                     <th scope="row">{{$category->id}}</th>
                     <td><a href="{{route('admin.categories.show', $category->slug)}}" title="View Category">{{$category->name}}</a></td>
-                    <td>{{Str::limit($category->body,100)}}</td>
 
                     <td><a class="link-secondary" href="{{route('admin.categories.edit', $category->slug)}}" title="Edit Category"><i class="fa-solid fa-pen"></i></a></td>
                     <td>
