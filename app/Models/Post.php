@@ -11,6 +11,12 @@ class Post extends Model
     use HasFactory;
     protected $fillable = ['user_id', 'title', 'slug', 'body', 'image'];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+
     /**
      * Summary of getSlug
      * @param mixed $title

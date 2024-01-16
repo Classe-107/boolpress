@@ -225,3 +225,28 @@ Route::fallback(function() {
 });
 
 ```
+## Relazioni
+```bash
+#migration di esempio 
+
+#up
+Schema::table('posts', function (Blueprint $table) {
+
+    $table->unsignedBigInteger('user_id');
+    $table->foreign('user_id')
+        ->references('id')
+        ->on('users')->cascadeOnDelete();
+});
+# shortcut
+	
+$table->foreignId('user_id')->constrained()->cascadeOnDelete();
+
+#down
+
+$table->dropForeign('posts_user_id_foreign');
+$table->dropColumn('user_id');
+
+
+
+
+```
