@@ -11,6 +11,11 @@ class Post extends Model
     use HasFactory;
     protected $fillable = ['user_id', 'title', 'slug', 'body', 'image'];
 
+    /**
+     * Summary of getSlug
+     * @param mixed $title
+     * @return \Illuminate\Support\Stringable|string
+     */
     public static function getSlug($title)
     {
         $slug = Str::of($title)->slug("-");
