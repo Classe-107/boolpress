@@ -6,15 +6,14 @@
              <a href="{{route('admin.posts.edit', $post->slug)}}" class="btn btn-success px-3">Edit</a>
         </div>
         <div>
-        <p>{!! $post->body !!}</p>
-                @if($post->category)
+            <p>{!! $post->body !!}</p>
+            @if($post->category)
                 <div class="mb-3">
                     <h4>Category</h4>
                     <a class="badge text-bg-primary" href="{{route('admin.categories.show', $post->category->slug)}}">{{$post->category->name}}</a>
                 </div>
-                <img src="{{asset('storage/' . $post->image)}}" alt="{{$post->title}}">
+            @endif
+            <img src="{{asset('storage/' . $post->image)}}" alt="{{$post->title}}">
         </div>
-
-        @endif
     </section>
 @endsection
