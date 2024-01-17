@@ -12,17 +12,16 @@ import.meta.glob(["../img/**", "../fonts/**"]);
 
 window.addEventListener("DOMContentLoaded", (event) => {
     // Toggle the side navigation
-    console.log("step 1");
+
     const sidebarToggle = document.body.querySelector("#sidebarToggle");
     if (sidebarToggle) {
-        console.log("step 2");
         // Uncomment Below to persist sidebar toggle between refreshes
         // if (localStorage.getItem('sb|sidebar-toggle') === 'true') {
         //     document.body.classList.toggle('sb-sidenav-toggled');
         // }
         sidebarToggle.addEventListener("click", (event) => {
             event.preventDefault();
-            console.log("step 3");
+
             document.body.classList.toggle("sb-sidenav-toggled");
             localStorage.setItem(
                 "sb|sidebar-toggle",
