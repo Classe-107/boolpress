@@ -10,38 +10,34 @@ import "./chart-area-demo.js";
 
 import.meta.glob(["../img/**", "../fonts/**"]);
 
-window.addEventListener("DOMContentLoaded", (event) => {
-    // Toggle the side navigation
+// Toggle the side navigation
 
-    const sidebarToggle = document.body.querySelector("#sidebarToggle");
-    if (sidebarToggle) {
-        // Uncomment Below to persist sidebar toggle between refreshes
-        // if (localStorage.getItem('sb|sidebar-toggle') === 'true') {
-        //     document.body.classList.toggle('sb-sidenav-toggled');
-        // }
-        sidebarToggle.addEventListener("click", (event) => {
-            event.preventDefault();
+const sidebarToggle = document.body.querySelector("#sidebarToggle");
+if (sidebarToggle) {
+    // Uncomment Below to persist sidebar toggle between refreshes
+    // if (localStorage.getItem('sb|sidebar-toggle') === 'true') {
+    //     document.body.classList.toggle('sb-sidenav-toggled');
+    // }
+    sidebarToggle.addEventListener("click", (event) => {
+        event.preventDefault();
 
-            document.body.classList.toggle("sb-sidenav-toggled");
-            localStorage.setItem(
-                "sb|sidebar-toggle",
-                document.body.classList.contains("sb-sidenav-toggled")
-            );
-        });
-    }
-});
+        document.body.classList.toggle("sb-sidenav-toggled");
+        localStorage.setItem(
+            "sb|sidebar-toggle",
+            document.body.classList.contains("sb-sidenav-toggled")
+        );
+    });
+}
 
-window.addEventListener("DOMContentLoaded", (event) => {
-    // Simple-DataTables
-    // https://github.com/fiduswriter/Simple-DataTables/wiki
+// Simple-DataTables
+// https://github.com/fiduswriter/Simple-DataTables/wiki
 
-    const datatablesSimple = document.getElementById("datatablesSimple");
-    if (datatablesSimple) {
-        const dataTable = new DataTable(datatablesSimple);
-        //new simpleDatatables.DataTable(datatablesSimple);//
-    }
-});
+const datatablesSimple = document.getElementById("datatablesSimple");
+if (datatablesSimple) {
+    const dataTable = new DataTable(datatablesSimple);
+}
 
+//Modal delete
 const deleteSubmitButtons = document.querySelectorAll(".delete-button");
 if (deleteSubmitButtons) {
     deleteSubmitButtons.forEach((button) => {
@@ -67,6 +63,7 @@ if (deleteSubmitButtons) {
     });
 }
 
+//Image preview on create
 const previewImage = document.getElementById("image");
 if (previewImage) {
     previewImage.addEventListener("change", (event) => {
