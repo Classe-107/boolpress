@@ -118,7 +118,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        $post->tags()->detach();
+        // $post->tags()->detach(); //non necessario se cascadeOnDelete
         if ($post->image) {
             Storage::delete($post->image);
         }

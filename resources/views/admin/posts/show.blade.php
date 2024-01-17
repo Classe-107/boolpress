@@ -7,14 +7,14 @@
         </div>
         <div>
             <p>{!! $post->body !!}</p>
-            @if($post->category)
+            @if($post->category_id)
                 <div class="mb-3">
                     <h4>Category</h4>
                     <a class="badge text-bg-primary" href="{{route('admin.categories.show', $post->category->slug)}}">{{$post->category->name}}</a>
                 </div>
             @endif
             <img src="{{asset('storage/' . $post->image)}}" alt="{{$post->title}}">
-             @if($post->tags)
+             @if(count($post->tags) > 0)
                 <div class="mb-3">
                     <h4>Tags</h4>
                     @foreach ($post->tags as $tag)
