@@ -33,7 +33,22 @@
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>
-
+   <div class="mb-3">
+    <div class="form-group">
+        <h6>Select Tags</h6>
+        @foreach ($tags as $tag)
+            <div class="form-check @error('tags') is-invalid @enderror">
+                <input type="checkbox" class="form-check-input" name="tags[]" value="{{ $tag->id }}"  {{ in_array($tag->id, old('tags',[])) ? 'checked' : '' }} >
+                <label class="form-check-label">
+                {{ $tag->name }}
+                 </label>
+            </div>
+        @endforeach
+        @error('tags')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
+   </div>
     <div class="d-flex">
         <div class="me-3">
             <img id="uploadPreview" width="100" src="https://via.placeholder.com/300x200">

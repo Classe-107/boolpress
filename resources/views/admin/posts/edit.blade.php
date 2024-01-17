@@ -33,6 +33,26 @@
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>
+    <div class="mb-3">
+    <div class="form-group">
+        <h6>Select Tags</h6>
+        @foreach ($tags as $tag)
+            <div class="form-check @error('tags') is-invalid @enderror">
+                @if($errors->any())
+                 <input type="checkbox" class="form-check-input" name="tags[]" value="{{ $tag->id }}"  {{ in_array($tag->id, old('tags', $post->tags)) ? 'checked' : '' }}>
+                @else
+                <input type="checkbox" class="form-check-input" name="tags[]" value="{{ $tag->id }}"  {{ $post->tags->contains($tag->id) ? 'checked' : '' }} >
+                 @endif
+                <label class="form-check-label">
+
+                {{ $tag->name }}
+                 </label>
+            </div>
+        @endforeach
+        @error('tags')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
     <div class="d-flex">
         <div class="media me-4">
             <img class="shadow" width="150" src="{{asset('storage/' . $post->image)}}" alt="{{$post->title}}">

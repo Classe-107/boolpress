@@ -14,6 +14,15 @@
                 </div>
             @endif
             <img src="{{asset('storage/' . $post->image)}}" alt="{{$post->title}}">
+             @if($post->tags)
+                <div class="mb-3">
+                    <h4>Tags</h4>
+                    @foreach ($post->tags as $tag)
+                        <a class="badge rounded-pill text-bg-success" href="{{route('admin.tags.show', $tag->slug)}}">{{$tag->name}}</a>
+                    @endforeach
+
+                </div>
+            @endif
         </div>
     </section>
 @endsection
