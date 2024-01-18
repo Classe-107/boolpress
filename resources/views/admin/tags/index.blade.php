@@ -28,7 +28,7 @@
                 <tr>
                     <th scope="row">{{$tag->id}}</th>
                     <td><a href="{{route('admin.tags.show', $tag->slug)}}" title="View Tag">{{$tag->name}}</a></td>
-@if (Auth::id() == 1)
+                    @if (Auth::id() == 1)
                     <td><a class="link-secondary" href="{{route('admin.tags.edit', $tag->slug)}}" title="Edit Tag"><i class="fa-solid fa-pen"></i></a></td>
                     <td>
                         <form action="{{route('admin.tags.destroy', $tag->slug)}}" method="POST">
