@@ -22,7 +22,12 @@ class PostController extends Controller
     public function index()
     {
         $currentUserId = Auth::id();
-        $posts = Post::where('user_id', $currentUserId)->paginate(3);
+        if ($currentUserId == 1) {
+            $posts = Post::paginate(3);
+        } else {
+            $posts = Post::where('user_id', $currentUserId)->paginate(3);
+        }
+
         return view('admin.posts.index', compact('posts'));
     }
 
@@ -68,8 +73,8 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-
-        if (Auth::id() == $post->user_id) {
+        $currentUserId = Auth::id();
+        if ($currentUserId == $post->user_id || $currentUserId == 1) {
             return view('admin.posts.show', compact('post'));
         }
         abort(403);
@@ -80,9 +85,14 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        $currentUserId = Auth::id();
+        if ($currentUserId != $post->user_id && $currentUserId != 1) {
+            abort(403);
+        }
         $categories = Category::all();
         $tags = Tag::all();
         return view('admin.posts.edit', compact('post', 'categories', 'tags'));
+
     }
 
     /**
@@ -90,6 +100,10 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
+        $currentUserId = Auth::id();
+        if ($currentUserId != $post->user_id && $currentUserId != 1) {
+            abort(403);
+        }
         $formData = $request->validated();
         $formData['slug'] = $post->slug;
         if ($post->title !== $formData['title']) {
@@ -123,6 +137,10 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        $currentUserId = Auth::id();
+        if ($currentUserId != $post->user_id && $currentUserId != 1) {
+            abort(403);
+        }
         // $post->tags()->detach(); //non necessario se cascadeOnDelete
         if ($post->image) {
             Storage::delete($post->image);
