@@ -16,8 +16,11 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">Name</th>
-            <th scope="col">Edit</th>
-            <th scope="col">Delete</th>
+            @if (Auth::id() == 1)
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+            @endif
+
         </tr>
         </thead>
         <tbody>
@@ -25,7 +28,7 @@
                 <tr>
                     <th scope="row">{{$tag->id}}</th>
                     <td><a href="{{route('admin.tags.show', $tag->slug)}}" title="View Tag">{{$tag->name}}</a></td>
-
+@if (Auth::id() == 1)
                     <td><a class="link-secondary" href="{{route('admin.tags.edit', $tag->slug)}}" title="Edit Tag"><i class="fa-solid fa-pen"></i></a></td>
                     <td>
                         <form action="{{route('admin.tags.destroy', $tag->slug)}}" method="POST">
@@ -34,6 +37,7 @@
                         <button type="submit" class="delete-button btn btn-danger ms-3" data-item-title="{{$tag->name}}"><i class="fa-solid fa-trash-can"></i></button>
                      </form>
                     </td>
+                    @endif
                 </tr>
         @endforeach
         </tbody>

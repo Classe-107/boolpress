@@ -8,6 +8,7 @@ use App\Models\Tag;
 use App\Http\Requests\StoreTagRequest;
 use App\Http\Requests\UpdateTagRequest;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 class TagController extends Controller
 {
@@ -55,6 +56,10 @@ class TagController extends Controller
      */
     public function edit(Tag $tag)
     {
+        $currentUserId = Auth::id();
+        if ($currentUserId != 1) {
+            abort(403);
+        }
         return view('admin.tags.edit', compact('tag'));
     }
 
@@ -80,6 +85,10 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
+        $currentUserId = Auth::id();
+        if ($currentUserId != 1) {
+            abort(403);
+        }
         $tag->delete();
         return to_route('admin.tags.index')->with('message', "$tag->name eliminato con successo");
     }
