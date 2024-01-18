@@ -104,6 +104,7 @@ export default defineConfig({
 #volendo personalizzo paginazione e pagine di errore
 php artisan vendor:publish --tag=laravel-errors
 php artisan vendor:publish --tag=laravel-pagination
+php artisan lang:publish
 
 #comandi git
 

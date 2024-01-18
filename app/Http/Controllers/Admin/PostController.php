@@ -21,7 +21,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $currentUserId = Auth::id();
+        $posts = Post::where('user_id', $currentUserId)->paginate(3);
         return view('admin.posts.index', compact('posts'));
     }
 
@@ -67,7 +68,11 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return view('admin.posts.show', compact('post'));
+
+        if (Auth::id() == $post->id) {
+            return view('admin.posts.show', compact('post'));
+        }
+        abort(403);
     }
 
     /**
