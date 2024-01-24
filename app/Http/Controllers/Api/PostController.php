@@ -8,8 +8,13 @@ use App\Models\Post;
 
 class PostController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        // if($request->query('category')) {
+        //     $posts = Post::where('category_id', $request('category'))->paginate(3);
+        // } else {
+        //     $posts = Post::latest()->paginate(3);
+        // }
         $posts = Post::paginate(3);
         return response()->json(
             [
