@@ -12,19 +12,11 @@ use App\Mail\NewContact;
 class LeadController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $data = $request->all();
         $validator = Validator::make($data, [
             'name' => 'required',
@@ -44,7 +36,7 @@ class LeadController extends Controller
         $newLead->fill($data);
         $newLead->save();
 
-        Mail::to('info@boolpress.com')->send(new NewContact($newLead));
+        Mail::to('clelia.fradella@gmail.com')->send(new NewContact($newLead));
 
         return response()->json([
                 'success' => true
@@ -52,21 +44,4 @@ class LeadController extends Controller
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Lead $lead)
-    {
-        //
-    }
-
-
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Lead $lead)
-    {
-        //
-    }
 }
