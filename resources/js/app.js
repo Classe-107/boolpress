@@ -5,8 +5,8 @@ import Chart from "chart.js";
 import { DataTable } from "simple-datatables";
 import "./chart-area-demo.js";
 import "./chart-bar-demo.js";
-import "./chart-area-demo.js";
-import "./chart-area-demo.js";
+import "./chart-pie-demo.js";
+
 
 import.meta.glob(["../img/**", "../fonts/**"]);
 

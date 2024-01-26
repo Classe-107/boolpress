@@ -30,7 +30,7 @@ Route::middleware(['auth', 'verified'])->name('admin.')->prefix('admin')->group(
     ]);
     Route::resource('categories', CategoryController::class)->parameters([
         'categories' => 'category:slug'
-    ]);
+    ]); //->except(['edit', 'create'])
     Route::resource('tags', TagController::class)->parameters([
         'tags' => 'tag:slug'
     ]);
